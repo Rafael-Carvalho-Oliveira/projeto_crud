@@ -1,0 +1,1 @@
+create user 'carvalho'@'localhost' IDENTIFIED by 'project_crud'; - criar um usuário

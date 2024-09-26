@@ -1,0 +1,16 @@
+grant all privileges on *.* to 'carvalho'@'localhost'; - dá os privilégios
+
+create database projeto_crud;
+
+create database if not exists projeto_crud character set utf8mb4 collate utf8mb4_unicode_ci;
+
+create table usuario(
+ID int primary key auto_increment,
+Nome varchar(120) not null,
+Email varchar(120) unique,
+Senha varchar(120) 
+);
+
+show tables;
+
+desc usuario;
