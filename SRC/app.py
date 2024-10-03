@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import services
 
 def main():
@@ -12,13 +13,39 @@ def main():
         emailEntry.delete(0, END)
         senhaEntry.delete(0, END) 
 
+    def listar_usuario():
+        usuarios = services.listar_usuario()
+
+        janela_listar = Toplevel(janela)
+        janela_listar.title("Lista de Usuários")
+        janela_listar.geometry("600x300")
+
+        #Criar uma Treeview(view, vizualização) da lista de usuários, show = "headings" para limpar o cabeçalho
+
+        tree = ttk.Treeview(janela_listar, columns=("ID", "Nome", "Email"), show = "headings")
+        tree.heading("ID", text = "ID")
+        tree.heading("Nome", text = "Nome")
+        tree.heading("Email", text = "Email")
+
+        #criar um botão de voltar que irá fechar a tela de lista de usuários
+
+        voltar = Button(janela_listar, text = "Voltar", command = janela_listar.destroy)
+        voltar.pack(fill = BOTH, expand = True, side = BOTTOM)
+
+        tree.pack(fill = BOTH, expand = True)
+
+        #Inserir os dados dos usuários na Treeview
+
+        for usuario in usuarios:
+            #END vai inserir o item no final da tabela
+            tree.insert("", END, values = usuario)
+
+
 
     janela = Tk()
     janela.geometry("400x400")
     janela.title("Sistema de Gerenciamento de Usuário")
 
-    #Cor de fundo
-    janela.configure(background = "#f0f0f0")
 
     #Titulo
     titulo = Label(janela, text = "Crud", font = ("Comic Sans MS", 20))
@@ -51,7 +78,7 @@ def main():
     cadastrar = Button(janela, text = "Cadastrar", width = 15, font = ("Comic Sans MS", 10), command = on_enviar)
     cadastrar.place(x = 100, y = 200)
 
-    listar = Button(janela, text = "Listar Usuários", width = 15, font = ("Comic Sans MS", 10))
+    listar = Button(janela, text = "Listar Usuários", width = 15, font = ("Comic Sans MS", 10), command = listar_usuario)
     listar.place(x = 250, y = 200)
 
     janela.mainloop()
