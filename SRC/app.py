@@ -11,7 +11,11 @@ def main():
 
         nomeEntry.delete(0, END)
         emailEntry.delete(0, END)
-        senhaEntry.delete(0, END) 
+        senhaEntry.delete(0, END)
+
+    def deletar_user(email):
+        email = emailEntry.get()
+        services.remover_usuario(email)
 
     def listar_usuario():
         usuarios = services.listar_usuario()
@@ -29,7 +33,7 @@ def main():
 
         #criar um botão de voltar que irá fechar a tela de lista de usuários
 
-        voltar = Button(janela_listar, text = "Voltar", command = janela_listar.destroy)
+        voltar = Button(janela_listar, text = "Voltar", font = ("Comic Sans MS", 20), command = janela_listar.destroy)
         voltar.pack(fill = BOTH, expand = True, side = BOTTOM)
 
         tree.pack(fill = BOTH, expand = True)
@@ -80,6 +84,9 @@ def main():
 
     listar = Button(janela, text = "Listar Usuários", width = 15, font = ("Comic Sans MS", 10), command = listar_usuario)
     listar.place(x = 250, y = 200)
+
+    remover = Button(janela, text = "Remover Usuário", width = 15, font = ("Comic Sans MS", 10), command = lambda: deletar_user(email))
+    remover.place(x = 100, y = 240)
 
     janela.mainloop()
 
